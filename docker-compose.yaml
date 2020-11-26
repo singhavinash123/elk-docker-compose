@@ -28,9 +28,14 @@ services:
             - elasticsearch
             - kibana
         networks:
-            - elk            
+            - elk   
+        command: --strict.perms=false
+        
+        secrets:
+         - source: filebeat.yml
+           target: /usr/share/filebeat/filebeat.yml 
+           
         volumes:
-            - 'filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro'
             - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
   
@@ -38,3 +43,7 @@ services:
 networks:
   elk:
     driver: bridge
+
+secrets: 
+  filebeat.yml:
+    file: filebeat.docker.yml
