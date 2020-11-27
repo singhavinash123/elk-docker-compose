@@ -7,6 +7,9 @@ services:
         ports:
             - "9200:9200"
             - "9300:9300"
+        volumes:
+            - 'es_data:/usr/share/elasticsearch/data'
+
         networks:
             - elk
 
@@ -47,3 +50,6 @@ networks:
 secrets: 
   filebeat.yml:
     file: filebeat.docker.yml
+    
+volumes:
+  es_data:
